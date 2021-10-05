@@ -1,0 +1,99 @@
+🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵🔵
+___________________________________
+
+     🔵             Compile                🔵
+
+1️⃣nasm -f elf64 -o hello.o hello.s
+2️⃣ld.lld -o hello hello.o
+___________________________________
+
+      🔵             For arch64          🔵
+g++ hello.cpp -o hello
+g++ -Wall -g -c file.cpp
+1️⃣as -o hello.o hello.S
+2️⃣ld -s -o hello hello.o
+Run with qemu 
+---------->    qemu-aarch64 <file>
+qemu-system-arm [...] -bios /usr/share/qemu/qemu-uefi-aarch64.bin
+----------------------------------------------------------
+
+     🔵           qemu error       🔵         |
+
+https://documentation.suse.com/sles/15-SP1/html/SLES-all/cha-qemu-running.html
+----------------------------------------------------------
+
+      🔵     aarch64 assembly     🔵
+https://peterdn.com/post/2020/08/22/hello-world-in-arm64-assembly/
+----------------------------------------------------------
+📜 operating system
+Intro//
+https://www.guru99.com/os-tutorial.html 
+___________________________________
+     🔴     Main                             🔴     
+
+https://github.com/ReturnInfinity/BareMetal-OS
+
+https://github.com/wichtounet/thor-os
+
+http://www.brokenthorn.com/Resources/OSDevIndex.html
+
+https://github.com/ghaiklor/ghaiklor-os-gcc
+
+----------------------------------------------------------
+
+   ⚫     Success run qemu cli     ⚫
+
+qemu-system-x86-64 -nographic -s -kernel <file>
+
+https://github.com/cfenollosa/os-tutorial/tree/master/01-bootsector-barebones
+
+----------------------------------------------------------
+     🔵        aarch64  [ OS ]        🔵       
+
+----------------------------------------------------------
+
+     🔵             assembly             🔵     
+
+https://github.com/below/HelloSilicon
+
+----------------------------------------------------------
+
+https://github.com/d0p1s4m4/Fukuro
+
+https://github.com/GENADEV/GENADEV_OS
+
+https://github.com/jserv/mini-arm-os
+
+https://github.com/ARMmbed/mbed-os
+
+//For compiling best command
+https://github.com/daniel-k/aarch64-hello-world //
+
+----------------------------------------------------------
+___________________________________
+
+        8086 emulator
+
+https://github.com/dwelch67/pcemu_samples/tree/master/original
+___________________________________
+
+https://github.com/Babtsov?tab=repositories
+
+https://github.com/orgs/mit-pdos/repositories
+
+http://www.osdever.net/tutorials/
+
+📜LINKER
+https://github.com/andrewhalle/byo-linker/blob/main/post/root.md
+___________________________________
+ 
+      🔴                shell                🔴     
+
+https://brennan.io/2015/01/16/write-a-shell-in-c/
+
+https://github.com/brenns10/lsh/blob/master/src/main.c
+
+___________________________________
+ Mix assembly & c
+https://www.devdungeon.com/content/how-mix-c-and-assembly
+___________________________________
