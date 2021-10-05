@@ -1,0 +1,246 @@
+Address space _______
+Jdo v operating system ek process nu load krda ta oh [OS ] address space create krda..
+Address space da matlab Ek range of address jerhe os process di general memory nu define krde a ki o process kitho lae ke kitho tak memory occupy krda ja touch kr skda 
+##############################$$$$$$$$$$$$$$$######$$. LINKING
+Converting an Object File /Relocatable Object into an Executable is called Linking
+####### EXAMPLE #######
+for example___
+Ek C program jo disk te pea o onu ADDRESS SPACE ch convert hon lai ja process ch convert hon lai kehre  kehre STEP's karne paende a this is next topic
+##############$$$$
+PROCESS banan lai 2 STEP's involve hunde a
+1)oh program da Link hoke executable file ban na
+2)Os executable file da process ja address space ban 
+__
+Jdo v apa program likhde a ta us program ch Code & Data section hunde a ohna diva section's to milke Relocatable Object banda [ Example .o / . object file bandi a ]
+oh object file link nhi hoi hundi
+[ Compilation & linking dove different chiza ne ] jo unlinked program pea hunda {$$unlink mean us program de vich kujh aes tra de function call ho rae hunde a ja kujh aesa Data Access ho rea hunda jo ki us file de vich (Jo COMPILE hoi hai us de vich hai he nahi)jo ki kise External file de vich hai us External file ne hun aes program nal link hona hai te fir eh Executable ch Convert hoe hi$$}
+#######$$##$$###
+Relocatable Object hunda ta us de vich Jo address hunde a { Code & Data } de oh Relocateable address ja Relative address hunde a
+
+$$__For example_______
+apna program main to shuru hunda
+te COMPILER ne COMPILE Krta 
+COMPILER Ne jehre os de Address generate kite a oh 0 to Some Range honge Let Say Apna 1KB Da code a te apa 1kb array declare kiti a [Apne kol 2 kb di os program di Address range hougi jo COMPILER ne 0 to 2KB define kiti hougi (COMPILER ne 1KB code da ADDRESS assign krta houga  & 1KB data da Assign krta houga ) {asal de vich code da size 1KB c & Data da size v 1KB c } Eh ABSOLUTE ADDRESS nhi a Quki aje aes de vich koi chiz Link nhi hoi.ho skda apa koi Printf ja koi hor Library Call Use kiti hoe aes program ch
+Oh aes program nal aje Link nhi hoi 
+ te jdo oh Link hougi ta odo Ja ta Aeh sare ADDRESS ja ehna vicho kujh Address (Jo CODE ja DATA vich ne oh Potentially Change ho sakde a te jdo oh Address Change ho jange te Link file Apne kol augi ta oh Executable file hougi [ EK CHANGE ADDRESS VICH odo Aaungi] Te Aes change to bad Change ADDRESS ch odo augi jdo program Memory ch load houga
+te odo [ OS ] us program nu Memory Allocate krega Ki program ne Physically Memory ch kis Jagah te Load hona te kitho Start Hona te Oh ADDRESS bilkul different honge Executable de Address to ve [ jehre linking de time ae c ] ::::::::::::::::::::
+Apa ehna 2 STEP's de vich 2 Vari Address change krde a Potentially kisi ve written program de jo ki  simple Object File de roop ch Apne kol Available a.
+##### More in Deep Linking  Process ####____$$$
+There are 3 Types/Category of Object Files
+1 ) Reallocatable File's = .o
+2 ) Fully Linked Executable
+3 ) shared Object File's = .so (shared Object)
+Aehna 3 Types lai apa nu Format chaida 
+$$$____What is File format?
+Ek header hunda file da te bad ch us file da Data hunda___________
+$$For example______
+.o file da Data hai [ Code & Data ]
+Te usda Header(format da ) Aeh dassuga ki Aes Object File de vich
+Code kitho Start hunda te kitho End hunda & Data kitho start hunda te kitho End hunda... Aeh aena ve simple jai nhi asal ch apa nu Further hor Sub Section chaede hunde a 
+1) .o file de Format's [ OS ] define krda oh [ OS ] Specific hunde a BUT WHY [ OS specific ] Because it is the responsibility of [ OS ] to Load That OBJECT FILE Into MEMORY {Finally usne Executable bna k ja Shared Library de toar te Load Krna ta oh [ OS ] Da kam a}That's WHY [ OS ] Itself usde Format's DEFINE krda Apne kol  Commonly Used Format's De 3 TYPES a 
+1 ) Cof format = Common Object File Format 
+eh pehla linux/unix ch bhot use hunda c & Windows da File format hai [ PE = Portable Executable { PE FORMAT } ] oh ve aese di he variation hai...Bad vich Unix ch aes da  use ghat hon lag gya 
+2 ) a.out format = Aeh v almost khatam ho gya 
+3 ) ELF Object File Format [ Exeble Format ] Aeh hun use hunda )...
+Aes File Format da faida ha ki Aeh 3 Types di [executable/object files
+(1) Relocatable Object File
+(2) Executable Files
+(3) Shared Object Files { aehna 3 lai 1 Common format define krta }  A.OUT & COF Aeve nhi kr skde c ]
+ELF Ek common Format a jisde vajah nal Ek Format di specification
+Ja Header di ja Files di management Easy ho jandi a
+####)### More details in ELF ###$
+jeve apa kea c v Only [ CODE & DATA ] section nhi hunde There are some other piece of information That are also rellovent Hundi a te oh ki hundi a >>>>>
+( 1 ) ELF Header [ aes ch ki INFORMATION Hundi a te oh INFO sanu ki dasdi a ]
+apa koi v .o [ .Object File la laie ELF FORMAT di ] osde HEADER ch apa nu kai section milnge && HEADER further divided Into Sub-Section's 
+Har SECTION Da 1 Particular Name a & usda Particular work & usdi Particular Type di INFORMATION a
+🔴 .Text section = basically Aeh apna oh Code a jo ki apa [ C/ja other ] programming ch likhea c
+[ Main ja Other FUNCTIONS oh Sare Colection of Functions are in the .Text Section ( COMPILER ja BINARY Form ch ) 
+TEXT SECTION jo hai HEADER DA oh Aeh dsda hai ki aes FILE De andar jo CODE hai oh kitho START HUNDA TE Kithe tak jai jnda Te Basically usdi hor kai Properties .Text Section ch Define hundi hai
+🔴.Data = Aeh oh Variable a jehre jehre code section ch hunde a .Data section ohna variable di Range kitho lae ke kitho tak a Aeh oh dasda hunda 
+📜.Data Section ch ohi variable hunde a Jo ki Apa [ INITIALISED (STATIC) DATA ]
+For example apa GLOBAL VARIABLE INITIALISED kita c int x = 10;  je x GLOBAL VARIABLE HAI te isnu koi value Assign hoi hai This will Occupy Space in the .o [ . OBJECT FILE ] in DATA SECTION
+ Te DATA SECTION isnu dasda houga ki DATA SECTION  de size ch ae contribute kruga & Kai variable apa GLOBALLY define kite honge par oh INITIALISE Nhi kite honge ohna lai .bss section hunda
+🔴.bss = [ BETTER SAVE SPACE ] aes section ch Koi v SPACE actually  occupy nhi ho rhi hundi Disk te is de koi v Space na Occupy karan de reason Aeh a ki usde vich INFORMATION He nhi hundi ki apa kinni jgah allocate krea [ isda Reason Aeh a Quki jdo o INITIALISE houga apa nu odo Space chaidi hougi ] Te oh INITIALISE houga jdo program Run kar rea houga te aes Reason karke Osnu Disk te .bss section de Variable de jgah mtlb UN- INITIALISE variable di jgah rakhan di koi vajah nhi hai _THATS WHY WE DONT REALLY USE SPACE FOR BSS SECTION BUT ITS THERE 
+In the HEADER FILE [ IN THE HEADER OF ELF FORMAT ] 
+🔴Symtab section [ eh symbol table compiler de symbol tae to different a BECAUSE COMPILER de symbol table ch har chiz de symbol hunde a Including local functions, local variable te har chiz de COMPILER nu usdi NEED Hundi a Compile karan lai ] Par Apne case ch Symtab ONLY Global function name and oh global variable jehre INITIALISED a sirf Ohna de NAME Store krda __ Aeh Symtab sirf INFO lai a ki Apne kol kehre global variable INITIALISED a Te FUNCTION NAME kehre a
+ 🔴.rel.text section aes section ch Relocation INFORMATION Hundi a 
+Mtlb oh saria INSTRUCTIONS CODE SECTION ch jo ki koi aese MEMORY
+ Nu refer  kar rhia jisne aje reallocate hona Jina da Actual address change hona..mtlb aese function call kr rhia jina de aje Address pta hi nhi 
+ 🔴.rel.data section  oh Sare ADDRESS jo ki oh global variable de a jihna de andar Aes tra di assignment hoia  jehria again oh address a jo ki  bad vicho change ho jania jdo usde nal further files link hongia ja Address space ch convert hongia 
+🔴.Debug [ DEBUG RELATED SECTION ] 
+
+
+
+#########################
+🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+
+📜📜📜✔️DLL = SHARED LIBRARIES OF LINUX📜📜📜
+1) 🔴 how linker operate on  Reallocatable object File & how linker convert it ( Object File) into executable.
+2) 🔴how [ OS ] LOADER convert an executable into a process.
+As we know ELF FORMAT Ch Different section hunde a HEADER Ch {⚫Most Important section like CODE & DATA Section te aehna de he corresponding Re-alocatable Information carry karan wale section a .rel.code & .rel.data
+##📜#$$$Jehri Relocateable INFO aehna ch pai a[ .rel.data & .rel.code ]How does LINKER USE this INFORMATION 
+##📜RELOCATING SYMBOL V& RESOLVING EXTERNAL REFERENCES
+# 🔴 WHAT ARE SYMBOL's?
+symbols are basically name
+$>Name that are belonging to function or variable
+$>Har symbol di value hundi a jo ki usda ADDRESS Hunda 
+✔️ Symbols are Name's & they have values which are Actually ADDRESS's
+$> Code consist of defination's of symbol & their reference
+✔️mtlb code ander kujh ni hunda Symbol defination's [ jithe apa variable define/declare kite a te ohna di taraf apa refer krde a INSTRUCTION ander code ander ahi  2 chiza hundia ) ]
+🔴$>Reference can be either LOCAL or EXTERNAL [ THEY ARE THEMSELVES ] jis variable nu CODE ne REFERENCE kita (jisnu koi assignment kita a ja / use kita os  variable nu avdi kise CALCULATION ch ) ja ta oh EXTERNAL to that File houga ( jo reference kita gea) ja LOCAL to that File houga Ja fir Oh LOCAL TO THAT FUNCTION V ho sakda te je Oh LOCAL to that function houga ta o REFERENCE  blikul hi local STACK Variable da REFERENCE Akhvauga Jo ki Function da Automatic Variable hunda/LOCAL Variable hunda)
+Je o GLOBAL VARIABLE nal REFERENCE ha te oh global variable ose code[file ] ch hai ta Oh LOCAL REFERENCE Akhvauga
+(3rd( type de hunde a EXTERNAL GLOBAL REFERENCE mtlb ja ta aes code ne koi function ja global variable nu call kita jo aes file ch nhi hai.
+🔴✔️🔴TYPES OF SYMBOL ⚫⚫
+📜THERE ARE (2) TYPES
+📜 STRONG & WEAK symbols
+[1]Strong symbol hunde a initialised global &  functions name
+[2]Uninitialized global variable are called weak symbol
+🔴✔️🔴LINKER SYMBOL rules⚫
+[1] A STRONG symbol vcan only appear once 
+[2] A WEAK symbol can be overridden by a STRONG symbol of SAME NAME
+---------- REFERENCE to the WEAK symbol resolve to the STRONG symbol=== mtlb je Apne kol WEAK & STRONG symbol a SAME NAME de ta hmesha jehra WEAK symbol nu REFERENCE krda houga code oh ACTUALLY STRONG symbol nu RESOLVE hojuga... mtlb linker othe ADDRESS fill kruga oh WEAK symbol da nhi houga STRONG da houga pr apa as a programmer khnde c WEAK symbol REFER hoe 
+[3] if there are multiple weak symbols in the program which are of the same name, the linker can pick an arbitrary one.
+🔴_____________________________🔴
+📜✔️🔴🔴 SHARED LIBRARIES 🔴
+⚫ DISADVANTAGES OF STATIC LIBRARIES ⚫⚫
+Potentially fir duplicating lots of common code in the executable files on a filesystem.
+⚫eg..,every C program needs C library Je ek program ne koi Printf ja scanf call kita te ove he vadhu program's ne call kita ta code duplicate hoje ga executable ch...
+[2]Minor bug fixes of system libraries require each application to explicitly relink(dubara RECOMPILE/RELINK Krna pauga)
+✔️🔴 SOLUTION=  SHARED LIBRARIES & DYNAMIC LINKING
+mtlb ehna dia .o files hundia o compile/link time te link hundia he nhi pr ehna di EXECUTABLE FILE ban jndi a te usde vich UN-RESOLVED REFERENCE hunde a
+Je usde nal koi LIBRARY DYNAMICALLY LINK HOI HAI ta
+LINKER dekhda v e .so[ SHARE LIBRARY ] ao fr v unresolved shad dinda..te eh RESOLVE [2] TIME RESOLVE HO SKDE A 
+✔️LOAD TIME..jdo v [ OS ] LOAD kre program  ta odo oh RESOLVE KR skda ohna SYMBOLS nu...(1) ja ta oh LOAD krlu .so [SHARED LIBRARY ] nu (2) ja oh dekhu ki kise hor program ne ta ni osnu phla he  LOAD kita hora je pls he kita hora ta o osnu REUSE krlu..mtlb DYNAMIC LINKER/ LOADER ona nu aes tra RESOLVE kru V jithe ona ne LINK hona c othe POINT krdu already LOADED LIBRARY val POINTERS nu
+📜Aes tra o Vari vari link nhi hou Blki SHARE HOJU📜 
+✔️RUN TIME..program khud decide krda ki program NEED to LOAD a SHARED LIBRARY at some point at a time te os TIME  v LOADER dekhu ki Aeh LIBRARY phla I LOADED a ta os di taraf POINT krdu POINTERS nu nhi ta oh LOAD krke MEMORY ch fir us mu POINT krdu program nu LIBRARY de taraf
+📜RUN THE te DL[DYNAMIC LINKING ] Karan lai [ OS ] kuj API provide krda LIKE [dlopen() {here dl mean (DYNAMIC LINKING)..in LINUX..}] dl types di..
+🔴🔴🔴📜✔️MPORTANT STEPS THAT [ OS ] KRDA JDO PROGRAM MEMORY CH LOAD HUNDA ja EXECUTE HUNDA  🔴🔴🔴
+📜te  Aeh system code COMPILERS da kamm a v o add kre with program🔴 
+✔️ 0x080480c0 <start> == eh oh SYMBOL a jithe  [OS ] program nu JUMP kro da jitho program start krda...it's entry point of program
+✔️ call _libc_init_first == it is required for every C program before it can starts using STANDARD C LIBRARY mtlb ae startup code a jo STANDARD C LIBRARY DI initialisation krda 
+✔️ call _init == ae [INIT FUNCTION JO KE [ OS ] SPECIFIC HUNDIA ]
+✔️ atexit == jdo program EXIT hunda ja EXIT CALL krda ,chahe program khud call kre ja na kre eh (atexit) call hunda BY-DEFAULT apa aes FUNCTION nu SYMTEM CALL de through OVERRIDE V kr skde a ta jo appa Avda koi FUNCTION EXECUTE kra laie [ OS ] to program EXIT vele 
+✔️ call main == application entry point 
+call _exit == jdo program da main function khatam hojuga ta odo program khud EXIT CALL kruga je MAIN program ne khud EXIT CALK nhi kita te fir CONTROL return krke [ OS ] nu aju... THAT'S WHY AEH DUBARA END TE PLACE HOI A 
+
+
+#########################🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+
+IMPORTANT COVERED IN THIS NOTES ⚫⚫⚫⚫⚫⚫⚫⚫⚫
+till lecture 3.. we covered that how program is linked STATICALLY OR DYNAMICALLY & we Have final EXECUTABLE That is ready to be LOADED INTO MEMORY To Become PROCESS 
+Jive apa nu pta hun tak ve PROCESS DI CREATION Is 2 STEP PROCESSES  (1st step) LINKING (2nd step) LOADING
+ 📜🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+LINKING APA COVER KRLI LEC4 CH APA LOADING BARE STUDY KRNA  like PROCESS CREATION
+📜📜✔️✔️🔴 LECTURE START 🔴
+[ 🔴 ] What is [✔️]ADDRESS SPACE
+& How this is FORMED in depth?
+ADDRESS SPACE Is COMBINATION of 2 words ADDRESS & SPACE in [COMPUTER SCIENCE ] SPACE is called RANGE of VALUES of VARIABLE mtlb oh ek VARIABLE jo v VALUE le skda oh SPACE hundi a
+ADDRESS SPACE da mtlb ek program de andar jo jo ADDRESS
+POSSIBLE hunde a jina di RANGE hundi mtkb oh program touch kr skda oh ADDRESS SPACE hundi a
+[ ✔️ ]🔴________ PROCESS_____🔴
+A PROCESS IS A RANGE OF ADDRESS VALUES..apa pehla dekhea c jdo apni LINKED EXECUTABLE FILE DISK te c odo usdi ADDRESS SPACE oh CODE & DATA SEGMENT di combined c jo LINKER NE LINK karan to bad usnu FINAL ADDRESS ASSIGN kite c
+[ os example ch CODE segment start hundi c 0 to 1KB & DATA start hundi c 1KB to 2KB & is example di ADDRESS space CODE & DATA SEGMENT da TOTAL banda c otho tak ode ADDRESS SPACE bnde c ( aes example ch TOTAL c 2KB )jera apa LINKED EXECUTABLE da FORMAT vekhea c ELF HEADER ch]
+✔️🔴THAT WAS THE ORIGINAL ADDRESS SPACE OF PROGRAM 🔴
+aes ORGINAL ADDRESS SPACE ch 5 THINGS ARE ADDED when that ORGINAL ADDRESS SPACE of EXECUTABLE is LOADED into MEMORY.( ACTUALLY 4 THINGS ARE {ALWAYS ADDED/MAINLY ADDED}& 5th thing MAY or MAY NIT ADDED depending on HOW THE [ OS ] is written
+📜✔️4THINGS WHICH ARE ALWAYS ADDED 📜
+[ ✔️] 1️⃣) RUN-TIME HEAP (MANAGED BY MALLOC(dynamic-memmory manager of c)aes di koi fixed value n a..ho skda RUN TIME te HEAP hoe I na te jive jive PROGRAM RUN kre ove ove MEMORY ALLOCATE kre (OBJECT create kre & fr ohna OBJECTS de INSTANCE CREATE honge) ta fir odo apa nu MEMORY chaidi hougi___🔴HEAP GROW hunda rehnda DYNAMICALLY  jive jive program EXECUTE hunda 🔴
+[ ✔️ ] 2️⃣) USER STACK== jdo v apna program koi FUNCTION CALL krda ja program within the function LOCAL VARIABLE DECLARE krda 
+then USER STACK is created..all these FUNCTION CALL & VARIABLES, FUNCTION RETURN ADDRESS are PUSH into the STACK
+..Aeh DYNAMICALLY GROW jive jive FUNCTION CALL hunde rehnde a ove ove eh GROW hunda te jive jive FUNCTION RETURN hunde a ove ove Aeh SHRINK krda.. basically Aeh ( GROW & SHRINK krda rehnda )
+[ ✔️ ] 3️⃣) MEMORY MAPPED for SHARED LIBRARIES== jehria LOAD ja RUN TIME te jo v SHARED  LIBRARIES DYNAMICALLY LINK hundia jdo program MEMORY ch LOAD hunda..Quki oh( LIBRARIES ) EXECUTABLE da PART nhi hundi jdo program disk ch hunda (jive apa nu pla I pta a)...Aeh v o SECTION a jo add hora baad ch...
+[ ✔️ ] 4️⃣ ) READ/WRITE segment (.BSS,.DATA) 🔴🔴 mainly called .BSS🔴🔴== program de UN-INITIALISED GLOBAL VARIABLE of PROGRAM. te jdo program RUN houga ta odo aehna UN-INITIALISED VARIABLE nu koi VALUE ASSIGN kruga te jdo oh program aehna(VARIABLE) nu VALUE assign krega ta odo apa nu MEMORY ch SPACE chaidi hou ta karke Aeh SECTION v GROW Krna start krdu
+[ ✔️ ] 5️⃣ ) KERNEL ITSELF == apa KERNEL nu v PROCESS da hissa bna skde a/kernel ch ENTRY kr skde a
+📜✔️🔴🔴🔴CONTROL FLOW of PROGRAM 🔴🔴🔴
+✔️ Computer do ONLY 1 Thing 
+_📜_From START to shutdown, a CPU simply READS & EXECUTES ( INTERRUPT's) a SEQUENCE of INSTRUCTIONS, ONE at a TIME.
+mtlb PROGRAM COUNTER INCREAMENT hunda REHNDA te CPU next INSTRUCTIONS fetch krda rehnda ohna de OPERAND de hisab nal MEMORY ACCESS krda te COMPUTATION's krda___THIS IS BASICALLY WHAT CPU KEEP's on DOING FOREVER UNTIL we SHUT IT DOWN
+📜📜✔️ ALTERING THE CONTROL FLOW OF PROGRAM & HOW MANY METHODS ARE AVAILABLE & HOW TO REACH/ENTER OPERATING SYSTEM 📜
+🔴✔️2 BASIC method for the program to change/alter control flow UNDER HIS OWN CONTROL
+1️⃣JUMP's & BRANCHES== eh kise CONDITIONAL OPERATOR de nteeje  vjo EXECUTE hundia{case statement, if, else}
+2️⃣ FUNCTION CALL & RETURN using stact discipline== apne program ne FUNCTION call kita FUNCTION de ADRESS te PROGRAM ne JUMP kita..RETURN ADDRESS mtlb jithe program ne FUNCTION CALL to bad vapas aona mtlb NEXT INSTRUCTION da ADDRESS STACK te PUSH hogya
+te apa os FUNCTION [ FUNCTION CALL hogi ] ch ENTER hogaye & jdo FUNCTION terminate hoea ta odo jo ADDRESS STACK te PUSH hoea c[ FUNCTION CALL wele ] o ADDRESS POP hoea te program us ADDRESS te JUMP krgea
+✔️✔️ THESE 2 TYPES ARE NOT SUFFICIENT FOR PROGRAM TO ENTER IN [ OS ] we need more like ASYNCHRONOUS[ kise ve TIME koi aesa EVENT occur kar sakan jo program nu majboor kar den chahe program chahe ja na chahe [ OS ] ch ENTER karan lai..
+1] instruction divide by 0
+2] User hit cli-c at the keyboard
+3] System TIMER EXPIREs
+4] ja koi hor chiz hoi jisto apa chone a v program apda control break krde ✔️SO THESE ARE CALLED == 
+EXCEPTIONAL CONTROL FLOW🔴
+ aehna karke hi koi v program [ OS ] entry lenda a
+📜✔️📜 TYPES of EXCEPTION's
+🔴 Definition= An EXCEPTION is a TRANSFER of CONTROL to the [ OS ] in response to some EVENT(change in PROCESSOR state)jdo v program de current state ch EXCEPTION occur hoi ta [ OS ] ch CONTROL gea & [ OS ] PROCESS exception  te fir CONTROL RETURN hogea NEXT INSTRUCTION nu / ja [ OS ] CONTROL program nu kre
+🔴 INTERRUPT'S == caused by event external to the PROCESSOR & these are indicated by setting the PROCESSOR INTERRUPT PIN 
+✔️✔️ Example of INTERRUPT'S == 1️⃣IO INTERRUPT
+2️⃣Arrival of a packet from network
+3️⃣dsk sector di read complete hogi 
+4️⃣RESTART button dab ta.. and things like that 
+🔴🔴jdo v INTERRUPT occur hundia ta CPU ek PREDETERMINED location's te JUMP krda & these PREDETERMINED location's are called INTERRUPT VECTORS
+🔴🔴✔️WHAT ARE INTERRUPT VECTORS ? 🔴🔴
+INTERRUPT VECTORS is basically array & every entry of array contain ADDRESS/POINTER of FUNCTIONS 
+jdo v CPU ch particular INTERRUPT ch JUMP krda ta CPU INTERRUPT VECTORS [ array ]PREDETERMINED MEMORY LOCATION CH gea te os array ch PARTICULAR ENTRY nu ACCESS kita te oda ADDRESS MEMORY ch LOAD kita te fir os ADDRESS ch JUMP kita(just like FUNCTION CALL )INTERRUPT HANDLER Da kam a INTERRUPT nu HANDLE Krna te Aeh (INTERRUPT HANDLER [ OS ] da part a)
+📜✔️📜 SYNCHRONOUS EXCEPTIONS 📜mtlb user ne khud avdi marji nal EXCEPTION create kiti(user ne program ch aesa instruction issue kiti a jis nal program da FLOW ALTER hogea te o [ OS ] ch enter ho gea[🔴🔴 USER PROGRAM ne SYSTEM CALL kiti hai ])
+🔴TRAP's == Example =USER use SYSTEM CALL in PROGRAM
+⚫⚫✔️⚫⚫TRAP da v VECTOR TABLE hunda⚫⚫
+🔴🔴🔴FAULT's == ✔️UNINTENTIONALLY but POSSIBLY RECOVERABLE
+Example: page faults(recoverable), protection faults (unrecoverable).
+Either execute faulting ("current") instruction or aborts.mtlb FAULTS to bad apa vapis ose INSTRUCTION ch a jande a jisne FAULT GENERATE kri c 🔴🔴
+🔴ABORT's== unintentionally & unrecoverable EXAMPLE: parity error, machine check
+✔️✔️ABORT CURRENT program
+___________________________________
+📜📜FAULT EXAMPLE ✔️✔️
+MEMORY REFERENCE hoea
+ek program ch 100 array a pr MEMORY ch only 50 a te Hun aethe ek FAULT occurr hou te PROCESSOR ne ek PREDETERMINED location te JUMP kita jo ki [ OS ne set kita c ADDRESS] jisne khnde a PAGE FAULT HANDLER te fir PAGE FAULT HANDLER n DISK to PAGE MEMORY ch LOAD krta te PROGRAM vapis ose LOCATION/INSTRUCTION to run Krna START krgea
+2️⃣ Example==⚫USER WRITTE to MEMORY LOCATION but it's not VALID⚫...je apa program ch 100 di array declare kiti c te apa 101 location ch kuj write krage ta apa array to bar nikalge eh ek ERROR GENERATE kruga jo ki PAGE HANDLER DETECT krlu eh ERROR nu SEGMENTATION FAULTS khnde a & PROGRAM TERMINATED
+🔴🔴📜📜✔️USER MODE & KERNEL MODE📜📜🔴🔴
+🔴🔴📜📜✔️CONTEXT SWITCHES
+USER MODE to KERNEL MODE ch jive janda [ OS ] 
+📜📜🔴🔴
+Jdo v COMPUTER START hunda ta oh hmesha [ OS ] de code ch JUMP KRDA [KERNEL MODE] fir PROCESS MANAGER call hunda
+🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴    
+          POCESS MANAGER   
+🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+   📒📒Copy ch sab likhea📒📒
+
+##########$$############
+🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+
+
+     🔴           File System           🔴     
+
+   🔵 introduction to file system
+file system [ OS ] da ek sub-system a jo Secondary Storage [ Disk ] usde upper ek abstraction layer provide krda user lai.user lai eh layer [ abstraction layer ] convince provide krda to manage the disk📀 in a easier way.(jehra apna disk hunda osde vich blocks hunde a je apa ohna blocks di term ch deal krea data ch for example main koi Data store Krna Disk te aes lai menu different blocks da track rkhna pauga v mera data Kithe  kehre-kehre blocks ch store a te main disk de kehre blocks read kra 
+avda data dekhan lai {as a USER or PROGRAMMER } aes kam nu easy karan lai file system use hunda)
+🔵file system is a unit of sharing data b/w user, program, permanently storing data on disk, sharing b/w process.file system aeh guarantee krda ki apni files khrab nhi hongia 
+
+ ⚫ challenges in File System  ⚫
+ 🔵 file is a unit & it's a collection of 
+data
+ 1️⃣ File's  nu live disk te store kita jae v jdo apa ohna files nu search krea ta ohna di searching & retrieval, files di access,reading & writing easy hoe mtlb sabto pehla ta disk di management a v file nu disk ch kive manage kita jae
+2️⃣ files di access faster kive B'nai jae/performance issue kive tackle kita jae quki disk di speed memory di speed to ght a 
+3️⃣ consistency = je apna system crash, reboot, shutdown krta apa,je system koi file write kri jnda c system crash,off hogea te jdo system firto start houga ta os file da ki bnu ki oh recover ho skdi & je oh file recover ho skdi a ta os recovery de ki procedure a.je multiple process/threads kise file ch write krde a same time( alongside ) ohna nu synchronise karan lai [ OS ] koi primetive provide krda / je nhi krda ta apa kive make sure krde a v apne multiple threads da data v  consistent halat ch file ch write hoje
+ te bad ch recover hoje crash to baad.
+     🔴     File's        🔴
+file is a collection of data with some properties like contents( ki oh file text file s, binary file a) size ( in bytes, words,kb,mb),owner ( who has created this file),last read/write time ( last time file modified ), protection ( kon os file read, write & execute kr skda ),types( ki o device a, link a, directory a) ,  aeh sab file de different attributes hunde a.
+  🔵 Device in linux 
+
+
+  🔴 Memory management           🔴
+
+   Memory Management de 2️⃣ level's a from the point/prospective of [ OS ].
+ 1️⃣) User level memory   
+        management.
+ 2️⃣) 
+___________________________________
+
+ User level Memory management =
+ user di application nal ek Memory Manager linked hai jo ki PROCESS ADDRESS SPACE de ander HEAP da section hunda os de ander [ HEAP ch ] INTERNALLY MANAGE krda MEMORY nu mtlb HEAP nu Blocks ch divide krda  & [ Memory Manager ] then it give's out those block/memory to Application on demand.HEAP management lai Apne kol kujh API/Library call hundia normally jive c vich malloc/free di calls hundia & application ohna call nu use krdi a just like in c++ object's di dynamic creations di call hundia te java ch v object's nu memory allocate karan lai different api hundia Aeh sab API HEAP nu INTERNALLY MANAGE karan lai use hundia( jehra HEAP section a Apne ADDRESS SPACE da usde andar Aeh API Blocks nu Manage krdia)
+
+___________________________________
+
+HEAP di space je khatam hon lag de a ta odo HEAP SYSTEM CALL krda [ OS nu ] v mere HEAP da size khatam hogea mnu hor SPACE chaidi a te fir [ OS ] HEAP da size Increase kr dinda [ quki HEAP Dynamic a ] 
+
+
+
+
+
+
+
